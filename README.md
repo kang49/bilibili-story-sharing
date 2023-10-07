@@ -50,7 +50,7 @@ Bilibili Story Builder is a shortcut for Apple Shortcuts that allows you to easi
 <br>
 
 1. Download the Bilibili Story Builder shortcut from the following link:
-   [Download Bilibili Story Builder](https://github.com/kang49/bilibili-story-sharing/releases/download/1.0.0/Bilibili.Story.Builder.shortcut)
+   [Download Bilibili Story Builder](https://github.com/kang49/bilibili-story-sharing/releases/latest/download/Bilibili.Story.Builder.shortcut)
 
 ### Step 2: Install Bilibili Story Builder Shortcut
 
