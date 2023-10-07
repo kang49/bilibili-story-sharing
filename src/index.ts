@@ -29,8 +29,9 @@ app.get('/api', async (req, res) => {
         //response main API
         res.json({ imageBase64: storyImageBase64 });
         await workCouter();
+        return;
     } else {
-        res.status(400).json({ error: 'Invalid parameter' });
+        return res.status(400).json({ error: 'Invalid parameter' });
     }
 });
 
