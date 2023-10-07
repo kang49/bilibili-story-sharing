@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import { workCouter } from './workCounter';
 import { findName } from "./findAnimeName";
 import { findPoster } from './findAnimePoster';
 import { storyCreator } from './storyCreator'
@@ -27,6 +28,7 @@ app.get('/api', async (req, res) => {
 
         //response main API
         res.json({ imageBase64: storyImageBase64 });
+        await workCouter();
     } else {
         res.status(400).json({ error: 'Invalid parameter' });
     }
