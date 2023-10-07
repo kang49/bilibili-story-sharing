@@ -22,8 +22,11 @@ app.get('/api', async (req, res) => {
 
     if (biliLink) {
         const animeName: string = await findName(BiliLink) as string; //Anime Name
-        const animePoster: string = await findPoster(animeName) as string; //Anime Poster
         console.log(animeName);
+        if (!animeName) {
+            return res.status(400).json({ error: 'anime not found' });
+        }
+        const animePoster: string = await findPoster(animeName) as string; //Anime Poster
         const storyImageBase64 = await storyCreator(animePoster, animeName);
 
         //response main API
