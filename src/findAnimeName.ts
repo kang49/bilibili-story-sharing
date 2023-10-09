@@ -22,9 +22,9 @@ export async function findName(BiliLink: string) {
 
             // Add code to retrieve additional data from the website as needed.
         } else {
-            return console.error('Unable to fetch data');
+            return console.error('Unable to fetch data', 'findName');
         }
     } catch (error) {
-        return console.error('An error occurred while fetching data:', error);
+        return console.error('An error occurred while fetching data:', error, 'findName');
     }
 }

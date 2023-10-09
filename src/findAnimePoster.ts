@@ -37,9 +37,9 @@ export async function findPoster(animeName: string) {
                 return console.error('No data found, findPoster');
             }
         } else {
-            return console.error('Unable to fetch data');
+            return console.error('Unable to fetch data', 'findPoster');
         }        
     } catch (error) {
-        return console.error('An error occurred while fetching data:', error);
+        return console.error('An error occurred while fetching data:', error, 'findPoster');
     }
 }
