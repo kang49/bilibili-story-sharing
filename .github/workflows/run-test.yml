@@ -31,24 +31,19 @@ jobs:
       - name: Install OpenVPN
         run: |
           sudo apt-get update
-          sudo apt-get install openvpn -y
-        shell: bash
-
-      - name: Set VPN Secrets as Environment Variables
-        run: |
-          echo "export VPN_USERNAME='${{ secrets.VPN_USERNAME }}'" >> $GITHUB_ENV
-          echo "export VPN_PASSWORD='${{ secrets.VPN_PASSWORD }}'" >> $GITHUB_ENV
+          sudo apt install apt-transport-https
+          curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/openvpn-repo-pkg-keyring.gpg
+          curl -fsSL https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-$DISTRO.list >/etc/apt/sources.list.d/openvpn3.list
+          sudo apt update
+          sudo apt install openvpn3
         shell: bash
       
       - name: OpenVPN Connect
         run: |
-          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "$VPN_USERNAME\n$VPN_PASSWORD") --daemon > openvpn.log 2>&1
+          echo "${{ secrets.VPN_CONFIG }}" > vpn-config.ovpn
+          sudo openvpn --config vpn-config.ovpn --daemon
+
         shell: bash
-      
-      - name: Print OpenVPN Logs
-        run: cat openvpn.log
-        shell: bash
-      
 
       - name: main-Test
         run: node dist/test/main-Test.js
