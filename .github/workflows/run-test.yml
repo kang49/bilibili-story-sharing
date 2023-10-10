@@ -27,6 +27,7 @@ jobs:
 
       - name: Wait for 30 seconds
         run: |
+          python --version
           python -c "import time; time.sleep(30)"
         shell: bash
 
