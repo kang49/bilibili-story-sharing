@@ -14,22 +14,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install OpenVPN
-        run: |
-          sudo apt update
-          sudo apt install openvpn -y
-        shell: bash
-
-      - name: OpenVPN Connect
-        run: |
-          sudo openvpn --config vpn-config.ovpn --daemon
-        shell: bash
-
-      - name: Wait for 30 seconds
-        run:
-          node countdown.js
-        shell: bash
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:

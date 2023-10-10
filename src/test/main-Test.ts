@@ -1,6 +1,9 @@
+import e from "express";
 import { findName } from "../findAnimeName";
 import { findPoster } from '../findAnimePoster';
 import { storyCreator } from '../storyCreator'
+
+import axios from 'axios';
 
 // Convert to string
 var BiliLink = 'https://bili.im/TalWaSH';
@@ -24,8 +27,19 @@ async function mainTest(BiliLink: string) {
             const animeName: string = await findName(BiliLink) as string; //Anime Name
             console.log(animeName);
             if (!animeName || animeName === undefined) throw new Error("anime not found")
-            const animePoster: string = await findPoster(animeName) as string; //Anime Poster
-            if (!animePoster || animePoster === undefined) throw new Error("poster not found")
+
+            const biliSearch: string = `https://www.bilibili.tv/search-result?q=${animeName}`
+
+            var animePoster;
+            try {
+                const response = await axios.get(biliSearch);
+
+                if (response.status === 200) {
+                    animePoster = 'OK';
+                } else throw new Error("poster not found")
+            } catch {
+                throw new Error('Unable to fetch data findPoster');
+            }
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             //Build Base64
@@ -48,8 +62,17 @@ async function mainTest(BiliLink: string) {
             if (!animeName || animeName === undefined) throw new Error("anime not found")
             console.log(animeName);
 
-            const animePoster: string = await findPoster(animeName) as string; //Anime Poster
-            if (!animePoster || animePoster === undefined) throw new Error("poster not found")
+            const biliSearch: string = `https://www.bilibili.tv/search-result?q=${animeName}`
+            var animePoster;
+            try {
+                const response = await axios.get(biliSearch);
+
+                if (response.status === 200) {
+                    animePoster = 'OK';
+                } else throw new Error("poster not found")
+            } catch {
+                throw new Error('Unable to fetch data findPoster');
+            }
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             const exStoryImageBase64 = storyImageBase64.slice(0, 200);
