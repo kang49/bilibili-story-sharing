@@ -28,11 +28,18 @@ jobs:
       - name: openApiPort-Testing
         run: node dist/test/openApiPort-Test.js
 
+      - name: Install OpenVPN
+        run: |
+          sudo apt-get update
+          sudo apt-get install openvpn -y
+        shell: bash
+      
       - name: OpenVPN Connect
         run: |
           echo "${{ secrets.VPN_CONFIG }}" > vpn-config.ovpn
-          echo -e "${{ secrets.VPN_CREDENTIALS }}" > vpn-credentials.txt
+          echo "${{ secrets.VPN_CREDENTIALS }}" > vpn-credentials.txt
           sudo openvpn --config vpn-config.ovpn --auth-user-pass vpn-credentials.txt --daemon
-
+        shell: bashs
+      
       - name: main-Test
         run: node dist/test/main-Test.js
