@@ -34,16 +34,17 @@ jobs:
           sudo apt-get install openvpn -y
         shell: bash
 
-      - name: Create VPN Credentials Files
+      - name: Set VPN Secrets as Environment Variables
         run: |
-          echo -n "${{ secrets.VPN_USERNAME }}" > vpn-username.txt
-          echo -n "${{ secrets.VPN_PASSWORD }}" > vpn-password.txt
-          chmod 600 vpn-username.txt vpn-password.txt
+          echo "export VPN_USERNAME='${{ secrets.VPN_USERNAME }}'" >> $GITHUB_ENV
+          echo "export VPN_PASSWORD='${{ secrets.VPN_PASSWORD }}'" >> $GITHUB_ENV
+        shell: bash
       
       - name: OpenVPN Connect
         run: |
-          sudo openvpn --config vpn-config.ovpn --auth-user-pass vpn-credentials.txt --daemon
+          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "$VPN_USERNAME\n$VPN_PASSWORD") --daemon
         shell: bash
+      
 
       - name: main-Test
         run: node dist/test/main-Test.js
