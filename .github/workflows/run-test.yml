@@ -27,6 +27,7 @@ jobs:
 
       - name: Wait for 30 seconds
         run: |
+          ls
           python countdown.py
         shell: bash
 
