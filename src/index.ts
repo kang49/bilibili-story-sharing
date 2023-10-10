@@ -32,10 +32,9 @@ app.get('/api', async (req, res) => {
         if (BiliLink) {
             const animeName: string = await findName(BiliLink) as string; //Anime Name
             console.log(animeName);
-            if (!animeName) {
-                return res.status(400).json({ error: 'anime not found' });
-            }
+            if (!animeName) return res.status(400).json({ error: 'anime not found' });
             const animePoster: string = await findPoster(animeName) as string; //Anime Poster
+            if (!animePoster || animePoster === undefined) return res.status(400).json({ error: 'anime poster not found' });
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             //response main API
@@ -49,6 +48,7 @@ app.get('/api', async (req, res) => {
             console.log(animeName);
 
             const animePoster: string = await findPoster(animeName) as string; //Anime Poster
+            if (!animePoster || animePoster === undefined) return res.status(400).json({ error: 'anime poster not found' });
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             //response main API

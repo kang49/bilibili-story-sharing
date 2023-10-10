@@ -23,9 +23,7 @@ function openApiPortTest() {
             process.exit();
         });
     } catch (error) {
-        console.error('Open port Error', error);
-        // End the program with a non-zero exit code to indicate an error
-        process.exit(1);
+        throw new Error("Open port Error', error");
     }
 }
 

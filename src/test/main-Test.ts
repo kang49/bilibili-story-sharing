@@ -9,6 +9,8 @@ var BiliLink = 'https://bili.im/TalWaSH';
 async function mainTest(BiliLink: string) {
     console.log('Function got',BiliLink)
 
+    if (!BiliLink || BiliLink === undefined) throw new Error("BiliLink not found")
+
     const linkRegex = /(https?:\/\/[^\s]+)/;
     const match = BiliLink.match(linkRegex);
 
@@ -22,10 +24,9 @@ async function mainTest(BiliLink: string) {
         if (BiliLink) {
             const animeName: string = await findName(BiliLink) as string; //Anime Name
             console.log(animeName);
-            if (!animeName) {
-                return console.error('anime not found')
-            }
+            if (!animeName || animeName === undefined) throw new Error("anime not found")
             const animePoster: string = await findPoster(animeName) as string; //Anime Poster
+            if (!animePoster || animePoster === undefined) throw new Error("poster not found")
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             //Build Base64
@@ -41,13 +42,15 @@ async function mainTest(BiliLink: string) {
             console.log('Poster Image', animePoster);
             console.log('Status OK');
             return;
-        } else return console.error('Invalid parameter');
+        } else throw new Error('Invalid parameter');
     } else {
         if (BiliLink) {
             const animeName: string = BiliLink;
+            if (!animeName || animeName === undefined) throw new Error("anime not found")
             console.log(animeName);
 
             const animePoster: string = await findPoster(animeName) as string; //Anime Poster
+            if (!animePoster || animePoster === undefined) throw new Error("poster not found")
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             const exStoryImageBase64 = storyImageBase64.slice(0, 200);
@@ -62,7 +65,7 @@ async function mainTest(BiliLink: string) {
             console.log('Poster Image', animePoster);
             console.log('Status OK');
             return;
-        } else return console.error('Invalid parameter');
+        } else throw new Error('Invalid parameter');
     }
 }
 
