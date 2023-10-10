@@ -31,13 +31,13 @@ jobs:
       - name: Install OpenVPN
         run: |
           sudo apt-get update
-          sudo apt-get install openvpn3 -y
+          sudo apt-get install openvpn -y
         shell: bash
 
       - name: OpenVPN Connect
         run: |
-          sudo openvpn3 --config vpn-config.ovpn --daemon
-          sudo openvpn3 session-start --config vpn-config.ovpn
+          sudo openvpn --config vpn-config.ovpn --daemon
+          sudo openvpn session-start --config vpn-config.ovpn
 
       - name: main-Test
         run: node dist/test/main-Test.js
