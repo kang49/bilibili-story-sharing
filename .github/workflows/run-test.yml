@@ -37,7 +37,6 @@ jobs:
       - name: OpenVPN Connect
         run: |
           sudo openvpn --config vpn-config.ovpn --daemon
-          sudo openvpn session-start --config vpn-config.ovpn
 
       - name: main-Test
         run: node dist/test/main-Test.js
