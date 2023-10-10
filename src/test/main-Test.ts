@@ -1,9 +1,6 @@
-import e from "express";
-import { findName } from "../findAnimeName";
-import { findPoster } from '../findAnimePoster';
-import { storyCreator } from '../storyCreator'
-
 import axios from 'axios';
+
+import { findName } from "../findAnimeName";
 
 // Convert to string
 var BiliLink = 'https://bili.im/TalWaSH';

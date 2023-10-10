@@ -29,8 +29,15 @@ export function storyCreator(animePoster: string, animeName: string) {
             // Apply StackBlur.js to the canvas
             StackBlur.canvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 100); // Adjust the blur radius as needed
 
+            //Adjust the card size accordingly
+            if (animeName.length <= 15) {
+                var frameCard: string = 'assets/img/bilibili_frame_regular.png';
+            } else {
+                var frameCard: string = 'assets/img/bilibili_frame_large.png'
+            }
+            
             // Load the frame image
-            loadImage('assets/img/bilibili_frame.png').then((frameImage) => {
+            loadImage(frameCard).then((frameImage) => {
                 // Draw the frame image on top of the canvas
                 ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
