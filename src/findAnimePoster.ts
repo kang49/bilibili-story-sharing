@@ -18,7 +18,6 @@ export async function findPoster(animeName: string) {
                 // If the element was not found, try the new selector
                 element = $('#app > div > div > section > main > div > section > div.search-result__main > ul > li.all-sheet__item.all-sheet__ogv_subject > div > div > div > div > ul > li:nth-child(1) > div > div.ogv__cover-wrap > div > a > img');
             }
-            console.log(response.data)
             if (element.length > 0) {
                 // Get the text content of the element
                 let animePoster = element.attr('src');
