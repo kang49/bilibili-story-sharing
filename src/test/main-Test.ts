@@ -40,16 +40,11 @@ async function mainTest(BiliLink: string) {
             } catch {
                 throw new Error('Unable to fetch data findPoster');
             }
-            const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
-
-            //Build Base64
-            const exStoryImageBase64 = storyImageBase64.slice(0, 200);
             //Result
             console.log('');
             console.log('');
             console.log(`++++++++++++++++++++++++++++
             RESULT`);
-            console.log('Base64 200C', exStoryImageBase64);
             console.log('Function got',BiliLink)
             console.log('Anime Name', animeName);
             console.log('Poster Image', animePoster);
@@ -73,15 +68,11 @@ async function mainTest(BiliLink: string) {
             } catch {
                 throw new Error('Unable to fetch data findPoster');
             }
-            const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
-
-            const exStoryImageBase64 = storyImageBase64.slice(0, 200);
             //Result
             console.log('');
             console.log('');
             console.log(`++++++++++++++++++++++++++++
             RESULT`);
-            console.log('Base64 200C', exStoryImageBase64);
             console.log('Function got',BiliLink)
             console.log('Anime Name', animeName);
             console.log('Poster Image', animePoster);
