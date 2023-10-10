@@ -31,19 +31,13 @@ jobs:
       - name: Install OpenVPN
         run: |
           sudo apt-get update
-          sudo apt install apt-transport-https
-          curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/openvpn-repo-pkg-keyring.gpg
-          curl -fsSL https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-$DISTRO.list >/etc/apt/sources.list.d/openvpn3.list
-          sudo apt update
-          sudo apt install openvpn3
+          sudo apt-get install openvpn -y
         shell: bash
-      
+
       - name: OpenVPN Connect
         run: |
           echo "${{ secrets.VPN_CONFIG }}" > vpn-config.ovpn
           sudo openvpn --config vpn-config.ovpn --daemon
-
-        shell: bash
 
       - name: main-Test
         run: node dist/test/main-Test.js
