@@ -23,9 +23,12 @@ jobs:
       - name: OpenVPN Connect
         run: |
           sudo openvpn --config vpn-config.ovpn --daemon
+        shell: bash
 
       - name: Wait for 30 seconds
-        run: sleep 30
+        run: |
+          python -c "import time; time.sleep(30)"
+        shell: bash
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
