@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - githubActions-testRun
 
 jobs:
   build:
