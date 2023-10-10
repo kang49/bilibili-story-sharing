@@ -26,9 +26,8 @@ jobs:
         shell: bash
 
       - name: Wait for 30 seconds
-        run: |
-          ls
-          python countdown.py
+        run:
+          python3 countdown.py
         shell: bash
 
       - name: Setup Node.js
