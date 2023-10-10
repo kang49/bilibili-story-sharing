@@ -33,11 +33,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install openvpn -y
         shell: bash
+
+      - name: Create VPN Credentials Files
+        run: |
+          echo -n "${{ secrets.VPN_USERNAME }}" > vpn-username.txt
+          echo -n "${{ secrets.VPN_PASSWORD }}" > vpn-password.txt
+          chmod 600 vpn-username.txt vpn-password.txt
       
       - name: OpenVPN Connect
         run: |
-          echo "${{ secrets.VPN_CONFIG }}" > vpn-config.ovpn
-          echo "${{ secrets.VPN_CREDENTIALS }}" > vpn-credentials.txt
           sudo openvpn --config vpn-config.ovpn --auth-user-pass vpn-credentials.txt --daemon
         shell: bash
 
