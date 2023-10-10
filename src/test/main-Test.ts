@@ -1,4 +1,3 @@
-import { workCouter } from '../workCounter';
 import { findName } from "../findAnimeName";
 import { findPoster } from '../findAnimePoster';
 import { storyCreator } from '../storyCreator'
