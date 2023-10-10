@@ -24,6 +24,9 @@ jobs:
         run: |
           sudo openvpn --config vpn-config.ovpn --daemon
 
+      - name: Wait for 30 seconds
+        run: sleep 30
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
