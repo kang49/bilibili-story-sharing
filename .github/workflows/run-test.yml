@@ -39,7 +39,7 @@ jobs:
           echo "${{ secrets.VPN_CONFIG }}" > vpn-config.ovpn
           echo "${{ secrets.VPN_CREDENTIALS }}" > vpn-credentials.txt
           sudo openvpn --config vpn-config.ovpn --auth-user-pass vpn-credentials.txt --daemon
-        shell: bashs
-      
+        shell: bash
+
       - name: main-Test
         run: node dist/test/main-Test.js
