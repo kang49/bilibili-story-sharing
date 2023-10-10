@@ -28,5 +28,5 @@ jobs:
       - name: openApiPort-Testing
         run: node dist/test/openApiPort-Test.js
 
-      - name: main-Test
+      - name: main-Testing
         run: node dist/test/main-Test.js
