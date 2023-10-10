@@ -42,7 +42,11 @@ jobs:
       
       - name: OpenVPN Connect
         run: |
-          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "$VPN_USERNAME\n$VPN_PASSWORD") --daemon
+          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "$VPN_USERNAME\n$VPN_PASSWORD") --daemon > openvpn.log 2>&1
+        shell: bash
+      
+      - name: Print OpenVPN Logs
+        run: cat openvpn.log
         shell: bash
       
 
