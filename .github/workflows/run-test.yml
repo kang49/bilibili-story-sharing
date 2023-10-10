@@ -27,6 +27,12 @@ jobs:
 
       - name: openApiPort-Testing
         run: node dist/test/openApiPort-Test.js
-      
+
+      - name: OpenVPN Connect
+        run: |
+          echo "${{ secrets.VPN_CONFIG }}" > vpn-config.ovpn
+          echo -e "${{ secrets.VPN_CREDENTIALS }}" > vpn-credentials.txt
+          sudo openvpn --config vpn-config.ovpn --auth-user-pass vpn-credentials.txt --daemon
+
       - name: main-Test
         run: node dist/test/main-Test.js
