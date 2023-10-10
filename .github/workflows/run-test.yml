@@ -3,8 +3,7 @@ name: Bilibili-Story-Builder Testing
 on:
   push:
     branches:
-      - main
-      - githubActions-testRun
+      - '*'
 
 jobs:
   build:
