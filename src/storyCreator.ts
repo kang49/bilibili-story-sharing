@@ -50,7 +50,7 @@ export function storyCreator(animePoster: string, animeName: string) {
                 const animeNameY = 1330; // Y-coordinate
 
                 // Define the maximum line width and animeName
-                const maxLineWidth = 500;
+                const maxLineWidth = 430;
 
                 // Function to split animeName into lines that fit within the maxLineWidth
                 function splitTextIntoLines_Word(animeName: string, maxLineWidth: number) {
