@@ -12,6 +12,13 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Allow all hosts
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, Authorization');
+    next();
+});  
+
 // API Route
 app.get('/api', async (req, res) => {
     const { biliLink } = req.query;
