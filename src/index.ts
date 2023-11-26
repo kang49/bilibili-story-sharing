@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // API Route
-app.get('/\/+api/', async (req, res) => {
+app.get(/\/api$/, async (req, res) => {
     const { biliLink } = req.query;
 
     // Convert to string

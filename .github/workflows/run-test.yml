@@ -29,3 +29,6 @@ jobs:
 
       - name: main-Testing
         run: node dist/test/main-Test.js
+      
+      - name: outsideAPI-Testing
+        run: node dist/test/outside-api-test.js
