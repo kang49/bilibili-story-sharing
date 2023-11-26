@@ -6,7 +6,7 @@ const fetchData = async (url:string, domain:string, name:string) => {
         const response = await axios.get(url);
         return console.log(`Test ${name} ${domain} result: ✅`);
     } catch (error) {
-        return console.error(`Test ${name} ${domain} result: ❌`);
+        return console.error(`Test ${name} ${domain} result: ❌`, error);
     }
 };
 
