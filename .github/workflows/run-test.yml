@@ -25,7 +25,7 @@ jobs:
         run: npm run build
       
       - name: Turn Off API Proxy
-        run: node src/test/turn-off-apiProxy.ts
+        run: node src/test/turn-off-apiProxy.js
         env:
           CLOUDFLARE_TENSORMIK_ZONE_ID: ${{ secrets.CLOUDFLARE_TENSORMIK_ZONE_ID }}
           CLOUDFLARE_GLOBAL_KEY: ${{ secrets.CLOUDFLARE_GLOBAL_KEY }}
@@ -41,7 +41,7 @@ jobs:
         run: node dist/test/outside-api-test.js
       
       - name: Turn On API Proxy
-        run: node src/test/turn-on-apiProxy.ts
+        run: node src/test/turn-on-apiProxy.js
         env:
           CLOUDFLARE_TENSORMIK_ZONE_ID: ${{ secrets.CLOUDFLARE_TENSORMIK_ZONE_ID }}
           CLOUDFLARE_GLOBAL_KEY: ${{ secrets.CLOUDFLARE_GLOBAL_KEY }}
