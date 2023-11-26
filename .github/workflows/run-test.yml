@@ -23,6 +23,13 @@ jobs:
 
       - name: Build
         run: npm run build
+      
+      - name: Turn Off API Proxy
+        run: node src/test/turn-off-apiProxy.ts
+        env:
+          CLOUDFLARE_TENSORMIK_ZONE_ID: ${{ secrets.CLOUDFLARE_TENSORMIK_ZONE_ID }}
+          CLOUDFLARE_GLOBAL_KEY: ${{ secrets.CLOUDFLARE_GLOBAL_KEY }}
+          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
 
       - name: openApiPort-Testing
         run: node dist/test/openApiPort-Test.js
@@ -32,3 +39,10 @@ jobs:
       
       - name: outsideAPI-Testing
         run: node dist/test/outside-api-test.js
+      
+      - name: Turn On API Proxy
+        run: node src/test/turn-on-apiProxy.ts
+        env:
+          CLOUDFLARE_TENSORMIK_ZONE_ID: ${{ secrets.CLOUDFLARE_TENSORMIK_ZONE_ID }}
+          CLOUDFLARE_GLOBAL_KEY: ${{ secrets.CLOUDFLARE_GLOBAL_KEY }}
+          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
