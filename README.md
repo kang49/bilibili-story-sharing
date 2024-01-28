@@ -40,6 +40,13 @@ Bilibili Story Builder is a shortcut for Apple Shortcuts that allows you to easi
   </a>
 </p>
 
+## API
+<div>
+  <a href="https://rapidapi.com/kang49/api/bilibili-story-builder2" target="_blank">
+    <img width="80px" src="https://avatars.githubusercontent.com/u/16919504?s=200&v=4">
+  </a>
+</div>
+
 ## How to Use ❓
 
 ### Step 1: Download Apple Shortcuts
