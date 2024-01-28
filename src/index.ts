@@ -66,6 +66,10 @@ app.get(/\/api$/, async (req, res) => {
     }
 });
 
+app.get(/\/ping$/, async (req, res) => {
+    res.send('pong');
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
