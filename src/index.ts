@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 
 // API Route
 app.get(/\/api$/, async (req, res) => {
-    const { biliLink } = req.query;
+    const { biliLink } = req.body.biliLink ?? req.query;
 
     // Convert to string
     var BiliLink = biliLink?.toString() || '';
@@ -68,6 +68,10 @@ app.get(/\/api$/, async (req, res) => {
 
 app.get(/\/ping$/, async (req, res) => {
     res.send('pong');
+});
+
+app.get('/', async (req, res) => {
+    res.send('Welcome to Bilibili Story Builder API');
 });
 
 // Start the server

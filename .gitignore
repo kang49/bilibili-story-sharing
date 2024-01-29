@@ -128,3 +128,4 @@ dist
 .DS_Store
 assets/cache
 package-lock.json
+*.lock
