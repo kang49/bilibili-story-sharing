@@ -37,6 +37,7 @@ Bilibili Story Builder is a shortcut for Apple Shortcuts that allows you to easi
 </p>
 <p align="center">
     <img src="https://komarev.com/ghpvc/?username=kang49-bilibili-story-sharing&label=Views&color=green&style=for-the-badge">
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fbilishare.tensormik.com%2Fapi%2Fworktimes">
   </a>
 </p>
 
