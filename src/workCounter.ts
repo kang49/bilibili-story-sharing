@@ -1,27 +1,28 @@
-import * as fs from 'fs';
+const fs = require('fs').promises; // Use the promise-based version of 'fs'
+const path = require('path');
 
-// ชื่อไฟล์ที่คุณต้องการอ่านและแก้ไข
-const fileName = 'assets/cache/workCouter.txt';
-export function workCouter() {
-    // อ่านข้อมูลจากไฟล์
-    fs.readFile(fileName, 'utf8', (err, data) => {
-        if (err) {
-            return;
-        }
 
-        // แปลงข้อมูลที่อ่านได้เป็นตัวเลข
-        const currentValue = parseInt(data, 10);
+export async function workCouter() {
+    const filePath = 'assets/json/worktimes.json'; // Read json file
 
-        if (!isNaN(currentValue)) {
-            // เพิ่มค่าลงไป 1
-            const newValue = currentValue + 1;
-
-            // บันทึกค่าใหม่ลงในไฟล์
-            fs.writeFile(fileName, newValue.toString(), 'utf8', (err) => {
-                if (err) {
-                    return;
-                }
-            });
-        }
-    });
+    try {
+        // Read the file
+        const data = await fs.readFile(filePath, 'utf8');
+        
+        // Parse the JSON
+        const jsonObject = JSON.parse(data);
+        
+        // Increment the 'worktimes' value
+        if (typeof jsonObject.process.worktimes === 'number') {
+            jsonObject.process.worktimes += 1;
+        } else return;
+        
+        // Convert the jsonObjectect back to JSON
+        const updatedJson = JSON.stringify(jsonObject, null, 2); // null and 2 are for formatting
+        
+        // Write the JSON back to the file
+        await fs.writeFile(filePath, updatedJson, 'utf8');
+    } catch {
+        return;
+    }
 }

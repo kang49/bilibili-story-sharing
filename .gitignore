@@ -129,3 +129,4 @@ dist
 assets/cache
 package-lock.json
 *.lock
+assets/json/worktimes.json

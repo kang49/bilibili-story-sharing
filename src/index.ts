@@ -1,10 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+const fs = require('fs').promises; // Use the promise-based version of 'fs'
+const path = require('path');
 
 import { workCouter } from './workCounter';
 import { findName } from "./findAnimeName";
 import { findPoster } from './findAnimePoster';
-import { storyCreator } from './storyCreator'
+import { storyCreator } from './storyCreator';
 
 const app = express();
 const port = 3000;
@@ -63,6 +65,33 @@ app.get(/\/api$/, async (req, res) => {
             await workCouter();
             return;
         } else return res.status(400).json({ error: 'Invalid parameter' });
+    }
+});
+
+app.get(/\/worktimes$/, async (req, res) => {
+    const filePath = 'assets/json/worktimes.json'; // Read json file
+
+    try {
+        // Read the file
+        const data = await fs.readFile(filePath, 'utf8');
+        
+        // Parse the JSON
+        const jsonObject = JSON.parse(data);
+        
+        // Send a response back
+        const pre_responseJson = {
+            "schemaVersion": 1,
+            "label": "Card generated",
+            "message": `${jsonObject.process.worktimes} Times`,
+            "color": "blue",
+            "style": "for-the-badge",
+            
+        }
+        res.json(pre_responseJson);
+    } catch (error) {
+        // Handle errors (file not found, JSON parse error, etc.)
+        console.error(error);
+        res.status(500).send('An error occurred');
     }
 });
 
