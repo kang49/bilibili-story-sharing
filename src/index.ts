@@ -23,11 +23,17 @@ app.use((req, res, next) => {
 
 // API Route
 app.get(/\/api$/, async (req, res) => {
-    const { biliLink } = req.body.biliLink ?? req.query;
+    let biliLink
+    if (req.headers.bililink) {
+        biliLink = req.headers.bililink;
+    } else {
+        biliLink = req.body.biliLink ?? req.query ?? req.headers.bililink
+    }
 
     // Convert to string
     var BiliLink = biliLink?.toString() || '';
-    console.log(BiliLink)
+    BiliLink = BiliLink.replace('%20', ' ');
+    console.log(BiliLink);
 
     const linkRegex = /(https?:\/\/[^\s]+)/;
     const match = BiliLink.match(linkRegex);
