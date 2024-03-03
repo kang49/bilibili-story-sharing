@@ -33,6 +33,10 @@ app.get(/\/api$/, async (req, res) => {
 
     // Convert to string
     var BiliLink = String(biliLink || '').replace('%20', ' ');
+    // Handle not support bilbili.com
+    if (BiliLink.includes("bilibili.com")) {
+        return res.status(400).json({ error: `We do not support the Chinese version of Bilibili url.` });
+    }
     console.log(BiliLink);
 
     const linkRegex = /(https?:\/\/[^\s]+)/;
