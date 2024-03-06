@@ -1,6 +1,5 @@
 import { createCanvas, loadImage } from 'canvas';
 const StackBlur = require('stackblur-canvas');
-import fs from 'fs';
 
 export function storyCreator(animePoster: string, animeName: string) {
     return new Promise((resolve, reject) => {

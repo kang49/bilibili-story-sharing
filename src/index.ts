@@ -1,9 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 const fs = require('fs').promises; // Use the promise-based version of 'fs'
-const path = require('path');
 
-import { workCouter } from './workCounter';
+import { workCounter } from './workCounter';
 import { findName } from "./findAnimeName";
 import { findPoster } from './findAnimePoster';
 import { storyCreator } from './storyCreator';
@@ -57,8 +56,8 @@ app.get(/\/api$/, async (req, res) => {
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             //response main API
-            res.json({ imageBase64: storyImageBase64 });
-            await workCouter();
+            res.json({ title: title, imageBase64: storyImageBase64 });
+            await workCounter();
             return;
         } else return res.status(400).json({ error: 'Invalid parameter' });
     } else {
@@ -71,8 +70,8 @@ app.get(/\/api$/, async (req, res) => {
             const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
 
             //response main API
-            res.json({ imageBase64: storyImageBase64 });
-            await workCouter();
+            res.json({ title: animeName, imageBase64: storyImageBase64 });
+            await workCounter();
             return;
         } else return res.status(400).json({ error: 'Invalid parameter' });
     }

@@ -1,8 +1,7 @@
 const fs = require('fs').promises; // Use the promise-based version of 'fs'
-const path = require('path');
 
 
-export async function workCouter() {
+export async function workCounter() {
     const filePath = 'assets/json/worktimes.json'; // Read json file
 
     try {
