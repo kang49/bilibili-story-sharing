@@ -1,8 +1,12 @@
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, registerFont } from 'canvas';
 const StackBlur = require('stackblur-canvas');
 
 export function storyCreator(animePoster: string, animeName: string) {
     return new Promise((resolve, reject) => {
+        // Register fonts
+        registerFont(`assets/fonts/LINESeedSansTH_Bd.ttf`, { family: 'lineSeed_bold' });
+        registerFont(`assets/fonts/LINESeedJP_TTF_Bd.ttf`, { family: 'lineSeed_bold' });
+
         // Create canvas with a fixed size of 1080x1920
         const canvas = createCanvas(1080, 1920);
         const ctx = canvas.getContext('2d');
@@ -42,7 +46,7 @@ export function storyCreator(animePoster: string, animeName: string) {
 
                 // Fill anime name animeName
                 ctx.fillStyle = 'black';
-                ctx.font = 'bold 55px Arial';
+                ctx.font = '55px lineSeed_bold';
 
                 // Define the animeName position (adjust as needed)
                 const animeNameX = 250; // X-coordinate
