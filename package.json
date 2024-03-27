@@ -15,7 +15,8 @@
   "scripts": {
     "dev": "tsc && node .",
     "start": "node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "product": "yarn install && tsc"
   },
   "devDependencies": {
     "typescript": "^5.2.2"
