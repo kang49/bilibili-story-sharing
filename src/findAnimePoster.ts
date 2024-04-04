@@ -2,7 +2,7 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 
 export async function findPoster(animeName: string) {
-    const biliSearch: string = `https://www.bilibili.tv/search-result?q=${animeName}`
+    const biliSearch: string = `https://www.bilibili.tv/search-result?q=${animeName} Anime`
 
     try {
         const response = await axios.get(biliSearch);
