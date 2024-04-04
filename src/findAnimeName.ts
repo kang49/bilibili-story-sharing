@@ -1,30 +1,37 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
 
-export async function findName(BiliLink: string) {
+export async function findName(biliLink: string) {
+  const fetchPageName = async (url: string) => {
     try {
-        const response = await axios.get(BiliLink);
+      const { data, status } = await axios.get(url);
+      if (status !== 200) throw new Error('Failed to fetch page data, findname');
+      
+      const $ = cheerio.load(data);
+      const elementSelector = '#app > div > div > section > main > div > section > div.video-play__meta.video-play__meta--ogv > section > header > h1 > a';
+      const element = $(elementSelector);
 
-        if (response.status === 200) {
-            const $ = cheerio.load(response.data);
-
-            // Find the element with the specified selector
-            const element = $('#app > div > div > section > main > div > section > div.video-play__meta.video-play__meta--ogv > section > header > h1 > a');
-
-            // Check if the element was found
-            if (element.length > 0) {
-                // Get the text content of the element
-                const animeName = element.text();
-                return animeName as string;
-            } else {
-                return console.error('No data found, findName');
-            }
-
-            // Add code to retrieve additional data from the website as needed.
-        } else {
-            return console.error('Unable to fetch data', 'findName');
-        }
+      return element.length > 0 ? element.text().trim() : 'No data found, findname';
     } catch (error) {
-        return console.error('An error occurred while fetching data:', error, 'findName');
+      console.error(`Error fetching data from ${url}:`, error, 'findname');
+      return 'Error fetching data, findname';
     }
+  };
+
+  try {
+    // Fetch the original page to get the response URL for possible redirection
+    const { request } = await axios.get(biliLink);
+    const originalLink = request.res.responseUrl;
+    const thBiliLink = originalLink.replace('/en/', '/th/');
+
+    const names = await Promise.all([
+      fetchPageName(originalLink),
+      fetchPageName(thBiliLink)
+    ]);
+
+    return names;
+  } catch (error) {
+    console.error('An error occurred while fetching data:', error, 'findname');
+    return ['Error fetching data', 'Error fetching data', 'findname'];
+  }
 }

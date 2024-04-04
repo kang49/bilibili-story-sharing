@@ -21,7 +21,7 @@ async function mainTest(BiliLink: string) {
         BiliLink = link;
 
         if (BiliLink) {
-            const animeName: string = await findName(BiliLink) as string; //Anime Name
+            const animeName: string[] = await findName(BiliLink) //Anime Name
             console.log(animeName);
             if (!animeName || animeName === undefined) throw new Error("anime not found")
 

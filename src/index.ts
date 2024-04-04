@@ -48,12 +48,12 @@ app.get(/\/api$/, async (req, res) => {
         BiliLink = link;
 
         if (BiliLink) {
-            const animeName: string = await findName(BiliLink) as string; //Anime Name
+            const animeName: string[] = await findName(BiliLink) //Anime Name
             console.log(animeName);
             if (!animeName) return res.status(400).json({ error: 'anime not found' });
-            const animePoster: string = await findPoster(animeName) as string; //Anime Poster
+            const animePoster: string = await findPoster(animeName[1]) as string; //Anime Poster
             if (!animePoster || animePoster === undefined) return res.status(400).json({ error: 'anime poster not found' });
-            const storyImageBase64: string = await storyCreator(animePoster, animeName) as string;
+            const storyImageBase64: string = await storyCreator(animePoster, animeName[0]) as string;
 
             //response main API
             res.json({ title: title, imageBase64: storyImageBase64 });
