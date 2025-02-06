@@ -4,7 +4,7 @@ require('dotenv').config();
 var apiBaseURL = 'https://api.cloudflare.com/client/v4';
 var zoneId = process.env.CLOUDFLARE_TENSORMIK_ZONE_ID; // แทนที่ด้วย Zone ID ของคุณ
 var globalApiKey = process.env.CLOUDFLARE_GLOBAL_KEY; // แทนที่ด้วย Global API Key ของคุณ
-var dnsRecordName = 'bilishare.tensormik.com'; // แทนที่ด้วยชื่อ DNS record ที่คุณต้องการเปลี่ยนแปลง
+var dnsRecordName = 'bilishare.kankawee.uk'; // แทนที่ด้วยชื่อ DNS record ที่คุณต้องการเปลี่ยนแปลง
 
 // ฟังก์ชันสำหรับการปรับแต่ง DNS record
 async function updateDNSRecordProxiedStatusOFF(proxied:any) {

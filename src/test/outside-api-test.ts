@@ -12,11 +12,11 @@ const fetchData = async (url:string, domain:string, name:string) => {
 
 async function outsideAPITest () {
     //name test
-    await fetchData('https://bilishare.tensormik.com/bili-api/api?biliLink=That%20Time%20I%20Got%20Reincarnated%20as%20a%20Slime', 'tensormik.com', 'name');
+    await fetchData('https://bilishare.kankawee.uk/bili-api/api?biliLink=That%20Time%20I%20Got%20Reincarnated%20as%20a%20Slime', 'tensormik.com', 'name');
     await fetchData('http://g49node0.ddns.net:3000/bili-api/api?biliLink=That%20Time%20I%20Got%20Reincarnated%20as%20a%20Slime', 'ddns.net', 'name');
 
     // //link test
-    await fetchData('https://bilishare.tensormik.com/bili-api/api?biliLink=https://www.bilibili.tv/th/play/1018282', 'tensormik.com', 'link');
+    await fetchData('https://bilishare.kankawee.uk/bili-api/api?biliLink=https://www.bilibili.tv/th/play/1018282', 'tensormik.com', 'link');
     await fetchData('http://g49node0.ddns.net:3000/bili-api/api?biliLink=https://www.bilibili.tv/th/play/1018282', 'ddns.net', 'link');
 }
 outsideAPITest()
