@@ -10,6 +10,8 @@ import { storyCreator } from './storyCreator';
 const app = express();
 const port = 3000;
 
+const date = new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" });
+
 // Middleware
 app.use(bodyParser.json());
 
@@ -36,7 +38,7 @@ app.get(/\/api$/, async (req, res) => {
     if (BiliLink.includes("bilibili.com")) {
         return res.status(400).json({ error: `We do not support the Chinese version of Bilibili url.` });
     }
-    console.log(BiliLink);
+    console.log(date ,BiliLink);
 
     const linkRegex = /(https?:\/\/[^\s]+)/;
     const match = BiliLink.match(linkRegex);
@@ -114,5 +116,5 @@ app.get('/', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`${date} | Server is running on port ${port}`);
 });
