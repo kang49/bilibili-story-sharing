@@ -113,6 +113,19 @@ app.get(/\/ping$/, async (req, res) => {
 app.get('/', async (req, res) => {
     res.send('Welcome to Bilibili Story Builder API');
 });
+app.use(
+    express.json({
+        type: (req) => {
+        const contentType = req.headers['content-type'] || '';
+        return /application\/json/.test(contentType);
+        },
+    })
+);
+
+app.post(/\/test$/, (req, res) => {
+    console.log('Body:', req.body);
+    res.send('Welcome to Bilibili Story Builder API');
+});
 
 // Start the server
 app.listen(port, () => {
