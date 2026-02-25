@@ -49,12 +49,24 @@ app.get(/\/api$/, async (req, res) => {
         BiliLink = link;
 
         if (BiliLink) {
-            const animeName: string[] = await findName(BiliLink) //Anime Name
-            console.log(animeName);
-            if (!animeName) return res.status(400).json({ error: 'anime not found' });
-            const animePoster: string = await findPoster(animeName[1]) as string; //Anime Poster
-            if (!animePoster || animePoster === undefined) return res.status(400).json({ error: 'anime poster not found' });
-            const storyImageBase64: string = await storyCreator(animePoster, animeName[0]) as string;
+            const animeNames: string[] = await findName(BiliLink) //Anime Name
+            console.log(animeNames); // Original log
+            if (!animeNames || animeNames.length === 0) return res.status(400).json({ error: 'anime not found' });
+            
+            let animePoster: string | undefined;
+            // Try each name until we find a poster
+            for (const name of animeNames) {
+                if (!name || name.includes('Error') || name.includes('No data found')) continue;
+                console.log('Searching poster for name:', name);
+                animePoster = await findPoster(name) as string;
+                if (animePoster) break;
+            }
+
+            if (!animePoster) return res.status(400).json({ error: 'anime poster not found' });
+            
+            // Use the first valid name for the story creator
+            const displayName = animeNames.find(n => !n.includes('Error') && !n.includes('No data found')) || animeNames[0];
+            const storyImageBase64: string = await storyCreator(animePoster, displayName) as string;
 
             //response main API
             res.json({ title: title, imageBase64: storyImageBase64 });
@@ -64,7 +76,7 @@ app.get(/\/api$/, async (req, res) => {
     } else {
         if (BiliLink) {
             const animeName: string = BiliLink;
-            console.log(animeName);
+            console.log(animeName); // Original log
 
             const animePoster: string = await findPoster(animeName) as string; //Anime Poster
             if (!animePoster || animePoster === undefined) return res.status(400).json({ error: 'anime poster not found' });
