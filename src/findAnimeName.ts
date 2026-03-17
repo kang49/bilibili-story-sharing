@@ -3,10 +3,30 @@ import * as cheerio from 'cheerio';
 
 export async function regenerate_path(orgin_biliLink: string) {
   const domain = 'https://www.bilibili.tv';
-  const path = orgin_biliLink.replace(domain, '');
-  const newPath = path.replace(/\/(en|th)\//, '/play/');
 
-  return domain + newPath;
+  try {
+    const url = new URL(orgin_biliLink);
+
+    // Enforce allowed scheme and host to mitigate SSRF
+    if (url.protocol !== 'https:' || url.hostname !== 'www.bilibili.tv') {
+      throw new Error('Unsupported Bilibili URL domain or protocol.');
+    }
+
+    // Normalize the path: turn /en/ or /th/ into /play/ within the pathname
+    const normalizedPath = url.pathname.replace(/\/(en|th)\//, '/play/');
+
+    // Reconstruct the URL using the trusted domain and normalized path
+    const normalizedUrl =
+      domain +
+      normalizedPath +
+      (url.search || '') +
+      (url.hash || '');
+
+    return normalizedUrl;
+  } catch (e) {
+    // If URL parsing or validation fails, propagate the error to be handled by the caller
+    throw new Error('Invalid Bilibili URL provided.');
+  }
 }
 
 export async function findName(biliLink: string) {

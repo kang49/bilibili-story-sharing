@@ -46,6 +46,18 @@ app.get(/\/api$/, async (req, res) => {
         const link = match[1];
         const title = BiliLink.replace(link, '').trim();
 
+        // Validate that the extracted link points to the allowed Bilibili TV domain
+        let parsedUrl: URL;
+        try {
+            parsedUrl = new URL(link);
+        } catch {
+            return res.status(400).json({ error: 'Invalid URL format for Bilibili link.' });
+        }
+
+        if (parsedUrl.protocol !== 'https:' || parsedUrl.hostname !== 'www.bilibili.tv') {
+            return res.status(400).json({ error: 'Only https://www.bilibili.tv URLs are allowed.' });
+        }
+
         BiliLink = link;
 
         if (BiliLink) {
