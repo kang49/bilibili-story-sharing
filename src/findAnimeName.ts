@@ -1,6 +1,10 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
+function isAllowedBilibiliUrl(url: URL): boolean {
+  return url.protocol === 'https:' && url.hostname === 'www.bilibili.tv';
+}
+
 export async function regenerate_path(orgin_biliLink: string) {
   const domain = 'https://www.bilibili.tv';
 
@@ -8,7 +12,7 @@ export async function regenerate_path(orgin_biliLink: string) {
     const url = new URL(orgin_biliLink);
 
     // Enforce allowed scheme and host to mitigate SSRF
-    if (url.protocol !== 'https:' || url.hostname !== 'www.bilibili.tv') {
+    if (!isAllowedBilibiliUrl(url)) {
       throw new Error('Unsupported Bilibili URL domain or protocol.');
     }
 
@@ -54,7 +58,21 @@ export async function findName(biliLink: string) {
   try {
     // Fetch the original page to get the response URL for possible redirection
     const initialResponse = await axios.get(biliLink);
-    const redirectedLink = initialResponse.request.res.responseUrl;
+    const redirectedLink: string =
+      (initialResponse.request && initialResponse.request.res && initialResponse.request.res.responseUrl) ||
+      biliLink;
+
+    let parsedRedirectUrl: URL;
+    try {
+      parsedRedirectUrl = new URL(redirectedLink);
+    } catch {
+      throw new Error('Invalid redirect URL from Bilibili.');
+    }
+
+    // Enforce allowed scheme and host on redirect to mitigate SSRF
+    if (!isAllowedBilibiliUrl(parsedRedirectUrl)) {
+      throw new Error('Unsupported redirect domain or protocol from Bilibili.');
+    }
     
     // Ensure we have both /en/ and /th/ versions
     let enBiliLink: string;
