@@ -1,7 +1,16 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
+export async function regenerate_path(orgin_biliLink: string) {
+  const domain = 'https://www.bilibili.tv';
+  const path = orgin_biliLink.replace(domain, '');
+  const newPath = path.replace(/\/(en|th)\//, '/play/');
+
+  return domain + newPath;
+}
+
 export async function findName(biliLink: string) {
+  biliLink = await regenerate_path(biliLink); // Ensure we have a consistent URL format for fetching names (Security)
   const fetchPageName = async (url: string) => {
     try {
       const response = await axios.get(url);
