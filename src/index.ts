@@ -10,6 +10,8 @@ import { storyCreator } from './storyCreator';
 const app = express();
 const port = 3000;
 
+const router = express.Router();
+
 // Middleware
 app.use(bodyParser.json());
 
@@ -21,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 // API Route
-app.get(/\/api$/, async (req, res) => {
+router.get(/\/api$/, async (req, res) => {
     let biliLink;
 
     if (req.headers.bililink) {
@@ -102,7 +104,7 @@ app.get(/\/api$/, async (req, res) => {
     }
 });
 
-app.get(/\/worktimes$/, async (req, res) => {
+router.get(/\/worktimes$/, async (req, res) => {
     const filePath = 'assets/json/worktimes.json'; // Read json file
 
     try {
@@ -129,13 +131,25 @@ app.get(/\/worktimes$/, async (req, res) => {
     }
 });
 
-app.get(/\/ping$/, async (req, res) => {
+router.get(/\/ping$/, async (req, res) => {
     res.send('pong');
 });
 
-app.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     res.send('Welcome to Bilibili Story Builder API');
 });
+
+router.post(/\/test$/, (req, res) => {
+    console.log('Body:', req.body);
+    res.send('Welcome to Bilibili Story Builder API');
+});
+
+app.use('/bili-api', router);
+
+// Keep root routes for local health checks if needed
+app.get('/ping', (req, res) => res.send('pong'));
+app.get('/', (req, res) => res.send('Welcome to Bilibili Story Builder API (Root)'));
+
 app.use(
     express.json({
         type: (req) => {
@@ -144,11 +158,6 @@ app.use(
         },
     })
 );
-
-app.post(/\/test$/, (req, res) => {
-    console.log('Body:', req.body);
-    res.send('Welcome to Bilibili Story Builder API');
-});
 
 // Start the server
 app.listen(port, () => {
